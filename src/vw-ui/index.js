@@ -1,16 +1,38 @@
-import Button from './button/Button';
-import Tabbar from './tabbar/Tabbar';
-import TabItem from './tabbar/TabItem';
+import ActionSheet from './components/actionsheet/actionsheet';
+import Button from './components/button/button';
+
+import Tabbar from './components/tabbar/tabbar';
+import TabItem from './components/tabbar/tab-item';
+
+import Slider from './components/slider/slider';
+
+import Swipe from './components/swipe/swipe';
+import SwipeItem from './components/swipe/swipe-item';
+
+import Toast from './components/toast/toast.js';
+import Toptip from './components/toptip/toptip.js';
 
 // All components.
 const COMPONENTS = [
+  ActionSheet,
   Button,
   Tabbar,
-  TabItem
+  TabItem,
+  Slider,
+  Swipe,
+  SwipeItem
 ];
 
-const install = function (Vue) {
+const SERVICES = [
+  Toast,
+  Toptip
+];
+
+const install = Vue => {
   if (install.installed) return;
+  SERVICES.forEach(service => {
+    Vue[service.name] = Vue.prototype[service.name] = service;
+  });
   COMPONENTS.forEach(comp => {
     Vue.component(comp.name, comp);
   });
